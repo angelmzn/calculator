@@ -10,8 +10,10 @@ function buttonClick(value){
      * This function will evaluate what happens
      * whenever a button is clicked. If the value
      * in the button is not a number, then it will
-     * recognize it as a symbol, else it will 
-     * handle it as a number
+     * execurte the handleSymbol function, while
+     * if it is a number, it will execute the 
+     * handleNumber function. Both are referenced
+     * bellow.
      */
     if(isNaN(value)){
         handleSymbol(value);
@@ -24,11 +26,16 @@ function buttonClick(value){
 
 
 function handleSymbol(symbol){
+    //In case the symbol is 'C', it will return the
+    //running total back to 0
     switch(symbol){
         case 'C':
             buffer = '0';
             runningTotal = 0;
             break;
+    //If the button pressed is '=', it must return the value.
+    //After showing the value, the previous operator and the running
+    //total will be back at 0 again for the next operation.
         case '=':
             if(previousOperator === null) {
                 return
@@ -42,10 +49,17 @@ function handleSymbol(symbol){
             if(buffer.length === 1){
                 buffer = '0';
             }else{
+                //substring removes the items in the string
+                //in the opposite order in which they were
+                //added.
                 buffer = buffer.substring(0, buffer.length - 1);
             }
             break;
         case '+':
+            //note that we had to copy the exact same value for minus 
+            //from the website, since there was a bug in which the regular
+            //'-' sign wasn't recognized as the same in the flushOperation
+            //function.
         case '−':
         case '×':
         case '÷':
